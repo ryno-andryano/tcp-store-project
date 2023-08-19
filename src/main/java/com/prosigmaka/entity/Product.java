@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @Entity
@@ -24,8 +22,5 @@ public class Product {
     private long price;
 
     private String image;
-
-    @OneToMany(mappedBy = "cartItemId.product")
-    private List<CartItem> cartItem;
-
+    
 }
