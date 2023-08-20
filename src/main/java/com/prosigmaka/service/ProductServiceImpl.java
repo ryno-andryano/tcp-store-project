@@ -50,10 +50,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Product update(long id, ProductDto productDto) {
         Product product = get(id);
-
-        System.out.println("Product: " + product);
-        System.out.println("ProductDTO: " + productDto);
-
+        
         if (productDto.getName() != null) {
             product.setName(productDto.getName());
         }

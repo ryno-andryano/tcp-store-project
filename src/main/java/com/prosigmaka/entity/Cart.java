@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -24,7 +23,7 @@ public class Cart {
     )
     private User user;
 
-    private Date orderDate;
+    private String orderDate;
 
     private long total;
 
