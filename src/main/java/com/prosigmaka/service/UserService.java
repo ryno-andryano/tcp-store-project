@@ -1,20 +1,19 @@
 package com.prosigmaka.service;
 
 import com.prosigmaka.entity.User;
-import com.prosigmaka.model.UserDto;
 
 import java.util.List;
 
 public interface UserService {
     boolean isExist(String username);
 
-    User create(UserDto userDto);
+    User create(User reqUser);
 
     List<User> getAll();
 
     User get(String username);
 
-    User update(String username, UserDto userDto);
+    User update(String username, User reqUser);
 
     void delete(String username);
 

@@ -1,7 +1,6 @@
 package com.prosigmaka.service;
 
 import com.prosigmaka.entity.Product;
-import com.prosigmaka.model.ProductDto;
 import com.prosigmaka.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,31 +36,31 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product create(ProductDto productDto) {
+    public Product create(Product reqProduct) {
         Product product = new Product();
-        product.setName(productDto.getName());
-        product.setDescription(productDto.getDescription());
-        product.setPrice(productDto.getPrice());
-        product.setImage(productDto.getImage());
+        product.setName(reqProduct.getName());
+        product.setDescription(reqProduct.getDescription());
+        product.setPrice(reqProduct.getPrice());
+        product.setImage(reqProduct.getImage());
         return productRepository.save(product);
     }
 
     @Override
     @Transactional
-    public Product update(long id, ProductDto productDto) {
+    public Product update(long id, Product reqProduct) {
         Product product = get(id);
-        
-        if (productDto.getName() != null) {
-            product.setName(productDto.getName());
+
+        if (reqProduct.getName() != null) {
+            product.setName(reqProduct.getName());
         }
-        if (productDto.getDescription() != null) {
-            product.setDescription(productDto.getDescription());
+        if (reqProduct.getDescription() != null) {
+            product.setDescription(reqProduct.getDescription());
         }
-        if (productDto.getPrice() != 0) {
-            product.setPrice(productDto.getPrice());
+        if (reqProduct.getPrice() != 0) {
+            product.setPrice(reqProduct.getPrice());
         }
-        if (productDto.getImage() != null) {
-            product.setImage(productDto.getImage());
+        if (reqProduct.getImage() != null) {
+            product.setImage(reqProduct.getImage());
         }
 
         return productRepository.save(product);

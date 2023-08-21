@@ -2,7 +2,6 @@ package com.prosigmaka.controller;
 
 import com.prosigmaka.entity.User;
 import com.prosigmaka.model.ResponseEnvelope;
-import com.prosigmaka.model.UserDto;
 import com.prosigmaka.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +21,13 @@ public class UserController {
 
     @PostMapping("/api/user")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ResponseEnvelope> createUser(@RequestBody UserDto userDto) {
-        if (userService.isExist(userDto.getUsername())) {
+    public ResponseEntity<ResponseEnvelope> createUser(@RequestBody User reqUser) {
+        if (userService.isExist(reqUser.getUsername())) {
             HttpStatus status = HttpStatus.CONFLICT;
             return new ResponseEntity<>(new ResponseEnvelope(status, "Username already used"), status);
         }
 
-        User user = userService.create(userDto);
+        User user = userService.create(reqUser);
         HttpStatus status = HttpStatus.CREATED;
         return new ResponseEntity<>(new ResponseEnvelope(status, user), status);
     }
@@ -56,13 +55,13 @@ public class UserController {
 
     @PutMapping("/api/user/{username}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or #username == principal.username")
-    public ResponseEntity<ResponseEnvelope> updateUser(@PathVariable String username, @RequestBody UserDto userDto) {
+    public ResponseEntity<ResponseEnvelope> updateUser(@PathVariable String username, @RequestBody User reqUser) {
         if (!userService.isExist(username)) {
             HttpStatus status = HttpStatus.NOT_FOUND;
             return new ResponseEntity<>(new ResponseEnvelope(status, "User not found"), status);
         }
 
-        User user = userService.update(username, userDto);
+        User user = userService.update(username, reqUser);
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(new ResponseEnvelope(status, user), status);
     }

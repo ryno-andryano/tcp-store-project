@@ -1,7 +1,6 @@
 package com.prosigmaka.controller;
 
 import com.prosigmaka.entity.Product;
-import com.prosigmaka.model.ProductDto;
 import com.prosigmaka.model.ResponseEnvelope;
 import com.prosigmaka.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -45,21 +44,21 @@ public class ProductController {
 
     @PostMapping("/api/product")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ResponseEnvelope> createProduct(@RequestBody ProductDto productDto) {
-        Product product = productService.create(productDto);
+    public ResponseEntity<ResponseEnvelope> createProduct(@RequestBody Product reqProduct) {
+        Product product = productService.create(reqProduct);
         HttpStatus status = HttpStatus.CREATED;
         return new ResponseEntity<>(new ResponseEnvelope(status, product), status);
     }
 
     @PutMapping("/api/product/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ResponseEnvelope> updateProduct(@PathVariable long id, @RequestBody ProductDto productDto) {
+    public ResponseEntity<ResponseEnvelope> updateProduct(@PathVariable long id, @RequestBody Product reqProduct) {
         if (!productService.isExist(id)) {
             HttpStatus status = HttpStatus.NOT_FOUND;
             return new ResponseEntity<>(new ResponseEnvelope(status, "Product not found"), status);
         }
 
-        Product product = productService.update(id, productDto);
+        Product product = productService.update(id, reqProduct);
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(new ResponseEnvelope(status, product), status);
     }

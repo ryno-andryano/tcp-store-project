@@ -40,6 +40,9 @@ public class CartController {
         if (!userService.isExist(username)) {
             HttpStatus status = HttpStatus.NOT_FOUND;
             return new ResponseEntity<>(new ResponseEnvelope(status, "User not found"), status);
+        } else if (!cartService.isExist(username)) {
+            HttpStatus status = HttpStatus.OK;
+            return new ResponseEntity<>(new ResponseEnvelope(status, "Cart is empty"), status);
         }
 
         Cart cart = cartService.getCart(username);
@@ -49,13 +52,16 @@ public class CartController {
 
     @PatchMapping("/api/user/{username}/cart")
     @PreAuthorize("#username == principal.username")
-    public ResponseEntity<ResponseEnvelope> updateCart(@PathVariable String username, @RequestBody Cart body) {
+    public ResponseEntity<ResponseEnvelope> updateCart(@PathVariable String username, @RequestBody Cart reqCart) {
         if (!userService.isExist(username)) {
             HttpStatus status = HttpStatus.NOT_FOUND;
             return new ResponseEntity<>(new ResponseEnvelope(status, "User not found"), status);
+        } else if (!cartService.isExist(username)) {
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(new ResponseEnvelope(status, "Cart is empty"), status);
         }
 
-        Cart cart = cartService.update(username, body);
+        Cart cart = cartService.update(username, reqCart);
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(new ResponseEnvelope(status, cart), status);
     }
@@ -67,7 +73,7 @@ public class CartController {
             HttpStatus status = HttpStatus.NOT_FOUND;
             return new ResponseEntity<>(new ResponseEnvelope(status, "User not found"), status);
         }
-        
+
         List<Cart> orderList = cartService.getAllOrders(username);
         HttpStatus status = HttpStatus.OK;
         return new ResponseEntity<>(new ResponseEnvelope(status, orderList), status);

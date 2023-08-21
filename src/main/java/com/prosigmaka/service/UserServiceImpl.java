@@ -1,7 +1,6 @@
 package com.prosigmaka.service;
 
 import com.prosigmaka.entity.User;
-import com.prosigmaka.model.UserDto;
 import com.prosigmaka.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,11 +30,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User create(UserDto userDto) {
+    public User create(User reqUser) {
         User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRole(userDto.getRole());
+        user.setUsername(reqUser.getUsername());
+        user.setPassword(passwordEncoder.encode(reqUser.getPassword()));
+        user.setRole(reqUser.getRole());
         return userRepository.save(user);
     }
 
@@ -55,21 +54,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User update(String username, UserDto userDto) {
+    public User update(String username, User reqUser) {
         List<? extends GrantedAuthority> authorities = (List<? extends GrantedAuthority>)
                 SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         String authority = authorities.get(0).getAuthority();
         User user = get(username);
 
-        if (userDto.getPassword() != null) {
-            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        if (reqUser.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(reqUser.getPassword()));
         }
-        if (userDto.getRole() != null) {
+        if (reqUser.getRole() != null) {
             if (authority.equals("ROLE_ADMIN")) {
-                user.setRole(userDto.getRole());
+                user.setRole(reqUser.getRole());
             }
         }
-        
+
         return userRepository.save(user);
     }
 
