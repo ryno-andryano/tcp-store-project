@@ -1,6 +1,7 @@
 package com.prosigmaka.service;
 
 import com.prosigmaka.entity.Cart;
+import com.prosigmaka.entity.CartItem;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface CartService {
 
     Cart getCart(String username);
 
-    Cart addItem(String username, Long productId);
+    CartItem addItem(String username, Long productId);
 
     Cart update(String username, Cart body);
 

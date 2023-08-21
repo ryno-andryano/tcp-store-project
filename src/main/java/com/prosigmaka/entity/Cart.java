@@ -1,12 +1,14 @@
 package com.prosigmaka.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Cart {
@@ -23,18 +25,20 @@ public class Cart {
     )
     private User user;
 
-    private String orderDate;
+    @OneToMany(mappedBy = "cartItemId.cart")
+    private List<CartItem> cartItems;
 
     private long total;
 
     @Column(nullable = false)
-    private String paidStatus;
+    private String paymentMethod = "NOT_SET";
 
-    private String paymentMethod;
+    @Column(nullable = false)
+    private String deliveryMethod = "NOT_SET";
 
-    private String deliveryMethod;
+    @Column(nullable = false)
+    private String paidStatus = "PENDING";
 
-    @OneToMany(mappedBy = "cartItemId.cart")
-    private List<CartItem> cartItems;
+    private String orderDate;
 
 }

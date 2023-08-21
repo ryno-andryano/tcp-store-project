@@ -4,15 +4,17 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode
 @Embeddable
 public class CartItemId implements Serializable {
 

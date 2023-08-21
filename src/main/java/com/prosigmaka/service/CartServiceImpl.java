@@ -57,40 +57,45 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public Cart addItem(String username, Long productId) {
+    public CartItem addItem(String username, Long productId) {
         Cart cart;
         if (!isExist(username)) {
             cart = create(username);
         } else {
-            User user = userRepository.findByUsername(username).orElseThrow();
-            cart = cartRepository.findByUserAndPaidStatus(user, "PENDING");
+            cart = getCart(username);
         }
-
         Product product = productRepository.findById(productId).orElseThrow();
-        CartItemId cartItemId = new CartItemId(cart, product);
+
+        CartItemId cartItemId = new CartItemId();
+        cartItemId.setCart(cart);
+        cartItemId.setProduct(product);
         CartItem cartItem = cartItemRepository.findByCartItemId(cartItemId);
 
         if (cartItem == null) {
-            cartItem = new CartItem(cartItemId, 1, product.getPrice());
+            cartItem = new CartItem();
+            cartItem.setCartItemId(cartItemId);
+            cartItem.setQuantity(1);
+            cartItem.setSubtotal(product.getPrice());
         } else {
-            cartItem.setCount(cartItem.getCount() + 1);
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
             cartItem.setSubtotal(cartItem.getSubtotal() + product.getPrice());
         }
-        cartItemRepository.save(cartItem);
+        cartItemRepository.saveAndFlush(cartItem);
 
         cart.setTotal(cart.getTotal() + product.getPrice());
-        return cartRepository.save(cart);
+        cartRepository.save(cart);
+        return cartItem;
     }
 
     @Override
     @Transactional
-    public Cart update(String username, Cart body) {
+    public Cart update(String username, Cart reqCart) {
         User user = userRepository.findByUsername(username).orElseThrow();
         Cart cart = cartRepository.findByUserAndPaidStatus(user, "PENDING");
 
-        if (body.getPaymentMethod() != null) cart.setPaymentMethod(body.getPaymentMethod());
-        if (body.getDeliveryMethod() != null) cart.setDeliveryMethod(body.getDeliveryMethod());
-        if (body.getPaidStatus() != null && body.getPaidStatus().equals("COMPLETED")) {
+        if (!reqCart.getPaymentMethod().equals("NOT_SET")) cart.setPaymentMethod(reqCart.getPaymentMethod());
+        if (!reqCart.getDeliveryMethod().equals("NOT_SET")) cart.setDeliveryMethod(reqCart.getDeliveryMethod());
+        if (reqCart.getPaidStatus().equals("COMPLETED")) {
             cart.setPaidStatus("COMPLETED");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             cart.setOrderDate(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(timestamp));

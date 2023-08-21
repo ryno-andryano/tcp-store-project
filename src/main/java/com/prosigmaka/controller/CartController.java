@@ -1,6 +1,7 @@
 package com.prosigmaka.controller;
 
 import com.prosigmaka.entity.Cart;
+import com.prosigmaka.entity.CartItem;
 import com.prosigmaka.model.ResponseEnvelope;
 import com.prosigmaka.service.CartService;
 import com.prosigmaka.service.UserService;
@@ -29,9 +30,9 @@ public class CartController {
             Principal principal
     ) {
         String username = principal.getName();
-        Cart cart = cartService.addItem(username, productId);
+        CartItem cartItem = cartService.addItem(username, productId);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, cart), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, cartItem), status);
     }
 
     @GetMapping("/api/user/{username}/cart")

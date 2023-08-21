@@ -1,10 +1,12 @@
 package com.prosigmaka.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Product {
@@ -22,5 +24,5 @@ public class Product {
     private long price;
 
     private String image;
-    
+
 }

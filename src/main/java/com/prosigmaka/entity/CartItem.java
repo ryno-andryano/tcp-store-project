@@ -2,20 +2,20 @@ package com.prosigmaka.entity;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class CartItem {
 
     @EmbeddedId
     private CartItemId cartItemId;
 
-    private int count;
+    private int quantity;
 
     private long subtotal;
 
