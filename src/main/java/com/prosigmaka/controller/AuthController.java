@@ -26,8 +26,8 @@ public class AuthController {
         }
 
         reqUser.setRole("ROLE_CUSTOMER");
-        User user = userService.create(reqUser);
+        User result = userService.create(reqUser);
         HttpStatus status = HttpStatus.CREATED;
-        return new ResponseEntity<>(new ResponseEnvelope(status, user), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 }

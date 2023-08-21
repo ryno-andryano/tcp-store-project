@@ -1,6 +1,7 @@
 package com.prosigmaka.controller;
 
 import com.prosigmaka.entity.Product;
+import com.prosigmaka.model.ProductResponse;
 import com.prosigmaka.model.ResponseEnvelope;
 import com.prosigmaka.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,9 @@ public class ProductController {
             @RequestParam(required = false) Long pmax
     ) {
         List<Product> products = productService.getAll(name, pmin, pmax);
+        List<ProductResponse> result = products.stream().map(ProductResponse::new).toList();
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, products), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @GetMapping("/api/product/{id}")
@@ -37,17 +39,17 @@ public class ProductController {
             return new ResponseEntity<>(new ResponseEnvelope(status, "Product not found"), status);
         }
 
-        Product product = productService.get(id);
+        Product result = productService.get(id);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, product), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @PostMapping("/api/product")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseEnvelope> createProduct(@RequestBody Product reqProduct) {
-        Product product = productService.create(reqProduct);
+        Product result = productService.create(reqProduct);
         HttpStatus status = HttpStatus.CREATED;
-        return new ResponseEntity<>(new ResponseEnvelope(status, product), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @PutMapping("/api/product/{id}")
@@ -58,9 +60,9 @@ public class ProductController {
             return new ResponseEntity<>(new ResponseEnvelope(status, "Product not found"), status);
         }
 
-        Product product = productService.update(id, reqProduct);
+        Product result = productService.update(id, reqProduct);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, product), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @DeleteMapping("/api/product/{id}")

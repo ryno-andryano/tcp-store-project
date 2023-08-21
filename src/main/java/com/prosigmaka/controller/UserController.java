@@ -2,6 +2,7 @@ package com.prosigmaka.controller;
 
 import com.prosigmaka.entity.User;
 import com.prosigmaka.model.ResponseEnvelope;
+import com.prosigmaka.model.UserResponse;
 import com.prosigmaka.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,17 +28,19 @@ public class UserController {
             return new ResponseEntity<>(new ResponseEnvelope(status, "Username already used"), status);
         }
 
-        User user = userService.create(reqUser);
+        User result = userService.create(reqUser);
         HttpStatus status = HttpStatus.CREATED;
-        return new ResponseEntity<>(new ResponseEnvelope(status, user), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @GetMapping("/api/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseEnvelope> getAllUsers() {
         List<User> users = userService.getAll();
+        List<UserResponse> result = users.stream().map(UserResponse::new).toList();
+
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, users), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @GetMapping("/api/user/{username}")
@@ -48,9 +51,9 @@ public class UserController {
             return new ResponseEntity<>(new ResponseEnvelope(status, "User not found"), status);
         }
 
-        User user = userService.get(username);
+        User result = userService.get(username);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, user), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @PutMapping("/api/user/{username}")
@@ -61,9 +64,9 @@ public class UserController {
             return new ResponseEntity<>(new ResponseEnvelope(status, "User not found"), status);
         }
 
-        User user = userService.update(username, reqUser);
+        User result = userService.update(username, reqUser);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, user), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @DeleteMapping("/api/user/{username}")

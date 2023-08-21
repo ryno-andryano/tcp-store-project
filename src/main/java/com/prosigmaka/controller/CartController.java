@@ -2,6 +2,9 @@ package com.prosigmaka.controller;
 
 import com.prosigmaka.entity.Cart;
 import com.prosigmaka.entity.CartItem;
+import com.prosigmaka.model.CartItemResponse;
+import com.prosigmaka.model.CartResponse;
+import com.prosigmaka.model.OrderResponse;
 import com.prosigmaka.model.ResponseEnvelope;
 import com.prosigmaka.service.CartService;
 import com.prosigmaka.service.UserService;
@@ -31,8 +34,9 @@ public class CartController {
     ) {
         String username = principal.getName();
         CartItem cartItem = cartService.addItem(username, productId);
+        CartItemResponse result = new CartItemResponse(cartItem);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, cartItem), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @GetMapping("/api/user/{username}/cart")
@@ -47,8 +51,9 @@ public class CartController {
         }
 
         Cart cart = cartService.getCart(username);
+        CartResponse result = new CartResponse(cart);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, cart), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @PatchMapping("/api/user/{username}/cart")
@@ -63,8 +68,9 @@ public class CartController {
         }
 
         Cart cart = cartService.update(username, reqCart);
+        OrderResponse result = new OrderResponse(cart);
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, cart), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 
     @GetMapping("/api/user/{username}/orders")
@@ -76,7 +82,8 @@ public class CartController {
         }
 
         List<Cart> orderList = cartService.getAllOrders(username);
+        List<OrderResponse> result = orderList.stream().map(OrderResponse::new).toList();
         HttpStatus status = HttpStatus.OK;
-        return new ResponseEntity<>(new ResponseEnvelope(status, orderList), status);
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
     }
 }
