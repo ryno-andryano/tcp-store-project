@@ -78,4 +78,12 @@ public class ProductController {
         return new ResponseEntity<>(new ResponseEnvelope(status, "Product deleted"), status);
     }
 
+    @GetMapping("/api/product/latest")
+    public ResponseEntity<ResponseEnvelope> getLatestProduct() {
+        List<Product> products = productService.getLatest();
+        List<ProductResponse> result = products.stream().map(ProductResponse::new).toList();
+        HttpStatus status = HttpStatus.OK;
+        return new ResponseEntity<>(new ResponseEnvelope(status, result), status);
+    }
+
 }

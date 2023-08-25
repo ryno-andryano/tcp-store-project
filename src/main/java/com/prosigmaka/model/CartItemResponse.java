@@ -16,7 +16,9 @@ public class CartItemResponse {
     public CartItemResponse(CartItem i) {
         this.productId = i.getCartItemId().getProduct().getId();
         this.productName = i.getCartItemId().getProduct().getName();
-        this.productImage = i.getCartItemId().getProduct().getImage();
+        if (!i.getCartItemId().getProduct().getImage().isEmpty())
+            this.productImage = i.getCartItemId().getProduct().getImage().get(0);
+        else this.productImage = null;
         this.price = i.getCartItemId().getProduct().getPrice();
         this.quantity = i.getQuantity();
         this.subtotal = i.getSubtotal();

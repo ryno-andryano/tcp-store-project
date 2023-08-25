@@ -65,4 +65,9 @@ public class ProductService {
     public void delete(long id) {
         productRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public List<Product> getLatest() {
+        return productRepository.findFirst3ByOrderByIdDesc();
+    }
 }

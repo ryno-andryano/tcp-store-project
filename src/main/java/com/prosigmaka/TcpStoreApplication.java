@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TcpStoreBackendApplication {
+public class TcpStoreApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TcpStoreBackendApplication.class, args);
+        SpringApplication.run(TcpStoreApplication.class, args);
     }
 
 }

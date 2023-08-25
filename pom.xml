@@ -11,8 +11,8 @@
     <groupId>com.prosigmaka</groupId>
     <artifactId>tcp-store-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tcp-store-backend</name>
-    <description>tcp-store-backend</description>
+    <name>tcp-store-project</name>
+    <description>tcp-store-project</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -27,7 +27,15 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
 
         <dependency>

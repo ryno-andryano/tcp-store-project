@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nike</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link
+      rel="icon"
+      href="https://www.nike.com/favicon.ico?v=1"
+      type="image/x-icon"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascript/product-form.js"></script>
+  </head>
+  <body style="width: 100%">
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <div class="container my-5 card shadow p-5 col-xl-6 col-md-10 mx-auto">
+      <form id="product-form">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h3 th:text="${title}"></h3>
+          <button type="submit" class="btn btn-outline-dark px-4">
+            Submit
+          </button>
+        </div>
+
+        <input type="hidden" class="form-control" id="id" />
+
+        <div class="row">
+          <div class="col-md-6 col-12 mb-4">
+            <label for="name" class="form-label"
+              >Product Name <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              required
+              autofocus
+            />
+          </div>
+
+          <div class="col-md-6 col-12 mb-4">
+            <label for="price" class="form-label"
+              >Price <span class="text-danger">*</span></label
+            >
+            <div class="input-group mb-3">
+              <span class="input-group-text">Rp</span>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                id="price"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-12 mb-4">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="5"
+              maxlength="1000"
+              style="resize: none; hyphens: auto; word-break: break-all"
+            ></textarea>
+          </div>
+
+          <div class="col-12 mb-4">
+            <label for="image" class="form-label"
+              >Image URL <span class="text-danger">*</span></label
+            >
+            <textarea
+              class="form-control"
+              id="image"
+              rows="5"
+              maxlength="1000"
+              style="resize: none; hyphens: manual"
+              required
+            ></textarea>
+            <div class="form-text">
+              Seperate multiple URL with comma. It is recommended to include at
+              least two images.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>

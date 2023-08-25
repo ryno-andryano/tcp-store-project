@@ -1,0 +1,99 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nike</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link
+      rel="icon"
+      href="https://www.nike.com/favicon.ico?v=1"
+      type="image/x-icon"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascript/home.js"></script>
+  </head>
+  <body style="width: 100%">
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <div class="container-fluid px-0">
+      <img
+        src="https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1824,c_limit/d8ae4bab-e246-45d6-9e1a-7537fe70f5e7/men-s-shoes-clothing-accessories.jpg"
+        class="d-block"
+        alt="..."
+        width="100%"
+        height="360px"
+        style="object-fit: cover"
+      />
+    </div>
+
+    <div class="album py-5">
+      <div class="container">
+        <div class="d-flex align-items-baseline justify-content-between">
+          <div class="fs-4 fw-bolder">New Arrival</div>
+          <a href="/products" class="link-dark link-underline-opacity-0"
+            >Browse All</a
+          >
+        </div>
+        <hr class="solid mt-0" />
+
+        <div
+          class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"
+          id="featured-container"
+        >
+          <div class="col placeholder-glow">
+            <div class="card shadow-sm">
+              <div style="height: 420px" class="card-img-top placeholder"></div>
+              <div class="card-body">
+                <div class="card-text m-0 mb-1 pb-1 row">
+                  <div class="col-8 placeholder" style="height: 28px"></div>
+                </div>
+                <div class="cart-text">
+                  <div class="col-4 placeholder"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col placeholder-glow">
+            <div class="card shadow-sm">
+              <div style="height: 420px" class="card-img-top placeholder"></div>
+              <div class="card-body">
+                <div class="card-text m-0 mb-1 pb-1 row">
+                  <div class="col-8 placeholder" style="height: 28px"></div>
+                </div>
+                <div class="cart-text">
+                  <div class="col-4 placeholder"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col placeholder-glow">
+            <div class="card shadow-sm">
+              <div style="height: 420px" class="card-img-top placeholder"></div>
+              <div class="card-body">
+                <div class="card-text m-0 mb-1 pb-1 row">
+                  <div class="col-8 placeholder" style="height: 28px"></div>
+                </div>
+                <div class="cart-text">
+                  <div class="col-4 placeholder"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>

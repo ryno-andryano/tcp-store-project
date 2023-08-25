@@ -17,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByNameLikeAndPriceGreaterThanEqualAndPriceLessThanEqual(
             @Param("name") String name, @Param("pmin") Long pmin, @Param("pmax") Long pmax
     );
+
+    List<Product> findFirst3ByOrderByIdDesc();
 }

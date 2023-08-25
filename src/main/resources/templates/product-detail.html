@@ -1,0 +1,74 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nike</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link
+      rel="icon"
+      href="https://www.nike.com/favicon.ico?v=1"
+      type="image/x-icon"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascript/product-detail.js"></script>
+  </head>
+  <body style="width: 100%">
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <div class="container row mx-auto mb-5 px-0 gx-5" id="product-container">
+      <div class="col-8 mt-5">
+        <div class="row row-cols-2 g-4 gx-4" id="images-container"></div>
+      </div>
+      <div class="col-4">
+        <div class="pt-5 sticky-top z-0">
+          <h3 id="product-name">Nike Air Humara</h3>
+          <h5 id="product-price">Rp 2.489.000</h5>
+          <p id="product-description" class="mt-4">
+            Tame the wild? Never. With vintage looks and Nike trail-running DNA,
+            the Air Humara sets you up to break free from mediocrity. The sporty
+            design harnesses premium materials and classic colours, evoking '90s
+            style and a whole lot of outdoor appeal. Zoom Air in the forefoot
+            and Nike Air in the heel deliver legendary comfort—and if anyone
+            tries to tell you that fashion and function don't mix, just turn it
+            over and show them the textile-wrapped midsole. A luxe touch that
+            puts you a step ahead of the rest.
+          </p>
+          <div sec:authorize="hasRole('ROLE_ADMIN')" class="mt-4 d-flex">
+            <button
+              class="btn btn-outline-dark w-50 me-1"
+              type="button"
+              id="edit-button"
+            >
+              Edit Product
+            </button>
+            <button
+              class="btn btn-outline-dark w-50 ms-1"
+              type="button"
+              id="delete-button"
+            >
+              Delete Product
+            </button>
+          </div>
+          <button
+            class="btn btn-dark w-100 mt-2"
+            type="button"
+            id="cart-button"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>
