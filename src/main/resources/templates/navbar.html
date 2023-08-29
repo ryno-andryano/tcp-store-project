@@ -30,7 +30,7 @@
         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
       >
         <li>
-          <a href="/" class="nav-link px-2 ms-lg-4 text-dark">Home</a>
+          <a href="/home" class="nav-link px-2 ms-lg-4 text-dark">Home</a>
         </li>
         <li>
           <a href="/products" class="nav-link px-2 ms-lg-4 text-dark"
@@ -51,13 +51,14 @@
         >
           Login
         </a>
-        <button
+        <a
+          href="/register"
           sec:authorize="isAnonymous()"
           type="button"
           class="btn btn-dark btn-sm"
         >
-          Sign-up
-        </button>
+          Register
+        </a>
 
         <div sec:authorize="isAuthenticated()" class="nav-item dropdown">
           <button

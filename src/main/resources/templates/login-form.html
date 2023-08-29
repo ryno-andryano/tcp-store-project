@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Nike</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link
+      href="https://www.nike.com/favicon.ico?v=1"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <script
+      crossorigin="anonymous"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+    ></script>
+    <script src="/javascript/home.js"></script>
+  </head>
+  <body>
+    <div class="fixed-top">
+      <div th:replace="~{navbar :: navbar}"></div>
+    </div>
+
+    <div class="d-flex align-items-center py-4" style="height: 100vh">
+      <main class="form-signin w-100 m-auto" style="max-width: 330px">
+        <form class="mb-5" action="/login" method="post">
+          <div class="w-100 text-center">
+            <svg
+              aria-hidden="true"
+              class="pre-logo-svg"
+              fill="none"
+              focusable="false"
+              role="img"
+              viewBox="0 0 24 24"
+              height="240px"
+              width="240px"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M21 8.719L7.836 14.303C6.74 14.768 5.818 15 5.075 15c-.836 0-1.445-.295-1.819-.884-.485-.76-.273-1.982.559-3.272.494-.754 1.122-1.446 1.734-2.108-.144.234-1.415 2.349-.025 3.345.275.2.666.298 1.147.298.386 0 .829-.063 1.316-.19L21 8.719z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+            <h2 class="mb-4">Log in to Nike</h2>
+          </div>
+
+          <div
+            th:if="${param.error}"
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            Invalid username or password.
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="username"
+              placeholder="name@example.com"
+              type="text"
+              name="username"
+              required
+            />
+            <label for="username">Username</label>
+          </div>
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="password"
+              placeholder="Password"
+              type="password"
+              name="password"
+              required
+            />
+            <label for="password">Password</label>
+          </div>
+
+          <button class="btn btn-dark w-100 py-2 mt-4 mb-5" type="submit">
+            Login
+          </button>
+        </form>
+      </main>
+    </div>
+
+    <script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>

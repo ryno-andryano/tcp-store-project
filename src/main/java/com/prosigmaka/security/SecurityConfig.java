@@ -37,12 +37,12 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/products", "/product/**", "/error**",
+                        .requestMatchers("/", "/home", "/products", "/product/**", "/error**", "/register",
                                 "/api/register", "/api/products", "/api/product/**",
                                 "/css/**", "/javascript/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(login -> login.loginPage("/login").defaultSuccessUrl("/home", true).permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .httpBasic(Customizer.withDefaults());
         return http.build();

@@ -1,0 +1,88 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nike</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link
+      rel="icon"
+      href="https://www.nike.com/favicon.ico?v=1"
+      type="image/x-icon"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/javascript/user-form.js"></script>
+  </head>
+  <body style="width: 100%">
+    <div th:replace="~{navbar :: navbar}"></div>
+
+    <div class="container my-5 card shadow p-5 col-xl-6 col-md-10 mx-auto">
+      <form id="user-form">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h3 th:text="${title}"></h3>
+          <button type="submit" class="btn btn-outline-dark px-4">
+            Submit
+          </button>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="col-12 alert alert-danger fade show"
+              role="alert"
+              id="username-error"
+              style="display: none"
+            >
+              Username already used.
+            </div>
+          </div>
+
+          <div class="col-12 mb-4">
+            <label for="username" class="form-label"
+              >Username <span class="text-danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              required
+              autofocus
+            />
+          </div>
+
+          <div class="col-12 mb-4">
+            <label for="password" class="form-label"
+              >Password <span class="text-danger">*</span></label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              required
+            />
+          </div>
+
+          <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-12 mb-4">
+            <label for="role" class="form-label"
+              >Role <span class="text-danger">*</span></label
+            >
+            <select class="form-select" id="role">
+              <option value="ROLE_CUSTOMER" selected>Customer</option>
+              <option value="ROLE_ADMIN">Admin</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script th:src="@{/javascript/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>
