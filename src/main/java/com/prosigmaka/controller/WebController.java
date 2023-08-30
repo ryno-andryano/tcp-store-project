@@ -49,4 +49,18 @@ public class WebController {
         if (principal != null) return new ModelAndView("redirect:/home");
         return new ModelAndView("user-form", "title", "Register");
     }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView displayUsersPage() {
+        return new ModelAndView("users");
+    }
+
+    @GetMapping({"/user/add", "/user/{username}/edit"})
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #username == principal.username")
+    public ModelAndView displayUserFormPage(@PathVariable(required = false) String username) {
+        if (username == null) return new ModelAndView("user-form", "title", "Add User");
+        else return new ModelAndView("user-form", "title", "Edit User");
+    }
+
 }

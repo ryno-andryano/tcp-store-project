@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nike</title>
+    <link
+      rel="icon"
+      href="https://www.nike.com/favicon.ico?v=1"
+      type="image/x-icon"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body style="width: 100vw; overflow-x: hidden">
+    <div th:replace="~{fragment/navbar :: navbar}"></div>
+
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3 class="m-0">User List</h3>
+        <a href="/user/add">
+          <button class="btn btn-sm btn-light fw-bolder">Add User</button>
+        </a>
+      </div>
+      <hr class="mb-4 mt-1" />
+
+      <table class="table table-bordered align-middle">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Role</th>
+            <th scope="col" style="width: 150px" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="/javascript/users.js"></script>
+  </body>
+</html>

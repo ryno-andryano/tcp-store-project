@@ -81,13 +81,19 @@
                 d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
               />
             </svg>
-            <span sec:authentication="name"></span>
+            <span sec:authentication="name" id="current-user"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end text-end">
             <li sec:authorize="hasRole('ROLE_ADMIN')">
-              <a class="dropdown-item" href="#">Manage Users</a>
+              <a class="dropdown-item" href="/users">Manage Users</a>
             </li>
-            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                th:href="@{'/user/' + ${#authentication.name} + '/edit'}"
+                >Edit Profile</a
+              >
+            </li>
             <li><a class="dropdown-item" href="#">Order History</a></li>
             <li>
               <hr class="dropdown-divider my-2" />
