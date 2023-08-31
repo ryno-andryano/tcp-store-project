@@ -1,41 +1,45 @@
 $(function () {
+  fetchProductDetail();
+  applyEventListener();
+});
+
+function fetchProductDetail() {
   $.ajax({
     url: `/api${window.location.pathname}`,
     type: "GET",
     dataType: "json",
     error: (xhr) => {
-      if (xhr.status === 404) {
-        window.location.replace(`${window.location.origin}/error404`);
-      }
+      window.location.replace(`${window.location.origin}/error${xhr.status}`);
     },
     success: (result) => {
-      const { name, price, image, description } = result.result;
+      const product = result.result;
+      renderProductDetail(product);
+    },
+  });
+}
 
-      $("#product-name").text(name);
+function renderProductDetail({ name, price, image, description }) {
+  const numberFormat = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
 
-      const numberFormat = new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-      });
-      $("#product-price").text(numberFormat.format(price));
-
-      $("#product-description").text(description);
-
-      let imagesHtml = "";
-      $.each(image, (index, i) => {
-        imagesHtml += `
+  $("#product-name").text(name);
+  $("#product-price").text(numberFormat.format(price));
+  $("#product-description").text(description);
+  $.each(image, (index, i) => {
+    $("#images-container").append(`
         <img
             class="col"
             height="450px"
             style="object-fit: cover"
             src="${i}"
             alt="${name}"
-        />`;
-      });
-      $("#images-container").html(imagesHtml);
-    },
+        />`);
   });
+}
 
+function applyEventListener() {
   $("#edit-button").click(() => {
     window.location.href += "/edit";
   });
@@ -55,4 +59,4 @@ $(function () {
       });
     }
   });
-});
+}

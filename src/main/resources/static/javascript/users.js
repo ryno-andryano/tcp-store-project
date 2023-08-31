@@ -1,26 +1,31 @@
 $(function () {
-  const currentUser = $("#current-user").text();
+  fetchUsers();
+});
 
+function fetchUsers() {
   $.ajax({
     url: `/api/users`,
     type: "GET",
     dataType: "json",
     success: (result) => {
       const users = result.result;
+      renderUsers(users);
+    },
+  });
+}
 
-      for (let i = 0; i < users.length; i++) {
-        const { username, role } = users[i];
-
-        $("#table-body").append(`
-          <tr id="row-${username}">
-            <td class="py-3">${username}</td>
-            <td>${role}</td>
+function renderUsers(users) {
+  $.each(users, (index, u) => {
+    $("#table-body").append(`
+          <tr id="row-${u.username}">
+            <td class="py-3">${u.username}</td>
+            <td>${u.role}</td>
             <td class="text-center">
               <a
-                href="/user/${username}/edit"
+                href="/user/${u.username}/edit"
                 class="btn btn-sm btn-light mx-1"
                 title="Edit"
-                id="edit-${username}"
+                id="edit-${u.username}"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +43,7 @@ $(function () {
               <button
                 class="btn btn-sm btn-light mx-1"
                 title="Delete"
-                id="delete-${username}"
+                id="delete-${u.username}"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -55,13 +60,12 @@ $(function () {
               </button>
             </td>
           </tr>`);
-
-        $(`#delete-${username}`).click(() => deleteUser(username));
-      }
-    },
+    applyEventListener(u.username);
   });
+}
 
-  const deleteUser = (username) => {
+function applyEventListener(username) {
+  $(`#delete-${username}`).click(() => {
     const confirmation = confirm(
       "Are you sure you want to remove this product?",
     );
@@ -75,5 +79,5 @@ $(function () {
         },
       });
     }
-  };
-});
+  });
+}
