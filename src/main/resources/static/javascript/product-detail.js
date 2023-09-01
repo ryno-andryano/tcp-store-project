@@ -59,4 +59,16 @@ function applyEventListener() {
       });
     }
   });
+
+  $("#cart-button").click(() => {
+    $.ajax({
+      url: `/api${window.location.pathname}/cart`,
+      type: "POST",
+    });
+
+    const toastLiveExample = $("#liveToast");
+    const toastBootstrap =
+      bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    toastBootstrap.show();
+  });
 }

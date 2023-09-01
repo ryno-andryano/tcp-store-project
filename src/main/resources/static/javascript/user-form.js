@@ -34,7 +34,6 @@ function fetchInitialValue(username) {
   const a2 = $("#password").val();
   const a3 = $("#role").val();
   const body = JSON.stringify({ a1, a2, a3 });
-  console.log(body);
 }
 
 function applyEventListener(pathUsername) {
@@ -85,7 +84,7 @@ function applyEventListener(pathUsername) {
       method = "POST";
       redirect = `${window.location.origin}/users`;
     }
-    console.log(username);
+
     return { url, method, redirect };
   }
 }

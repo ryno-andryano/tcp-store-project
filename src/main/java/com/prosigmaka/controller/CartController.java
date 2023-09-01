@@ -55,7 +55,7 @@ public class CartController {
             return new ResponseEntity<>(new ResponseEnvelope(status, "User not found"), status);
         } else if (!cartService.isCartExist(username)) {
             HttpStatus status = HttpStatus.OK;
-            return new ResponseEntity<>(new ResponseEnvelope(status, "Cart is empty"), status);
+            return new ResponseEntity<>(new ResponseEnvelope(status, null), status);
         }
 
         Cart cart = cartService.getCart(username);

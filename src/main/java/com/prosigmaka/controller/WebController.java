@@ -63,4 +63,15 @@ public class WebController {
         else return new ModelAndView("user-form", "title", "Edit User");
     }
 
+    @GetMapping("/cart")
+    public ModelAndView displayCartPage(Principal principal) {
+        if (principal == null) return new ModelAndView("redirect:/login");
+        else return new ModelAndView("cart");
+    }
+
+    @GetMapping("/order-history")
+    public ModelAndView displayOrderHistoryPage() {
+        return new ModelAndView("order");
+    }
+
 }
